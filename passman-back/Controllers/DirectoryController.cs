@@ -35,10 +35,9 @@ namespace passman_back.Controllers {
             throw new NotImplementedException();
         }
 
-        [HttpDelete("[action]/{id}")]
+        [HttpDelete("delete/{id}")]
         public ActionResult<DirectoryOutDto> Delete(long id) {
             throw new NotImplementedException();
         }
-
     }
 }

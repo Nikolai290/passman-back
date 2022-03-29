@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using passman_back.Domain.Interfaces.DbContexts;
+using passman_back.Infrastructure.Data.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,6 @@ namespace passman_back {
         }
 
         public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
 
@@ -27,6 +28,7 @@ namespace passman_back {
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "passman_back", Version = "v1" });
             });
+            services.AddDbContext<IMainDbContext,MainDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

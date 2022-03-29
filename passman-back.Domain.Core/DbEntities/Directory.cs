@@ -2,9 +2,10 @@
 
 namespace passman_back.Domain.Core.DbEntities {
     public class Directory : AbstractDbEntity {
-        public string Name { get; set; }
-        public Directory Parent { get; set; }
-        public IList<Directory> Childrens { get; set; }
-        public IList<Passcard> Passcards { get; set; }
+        public Directory() { }
+        public virtual string Name { get; set; }
+        public virtual Directory Parent { get; set; }
+        public virtual IList<Directory> Childrens { get; set; }
+        public virtual IList<Passcard> Passcards { get; set; }
     }
 }
