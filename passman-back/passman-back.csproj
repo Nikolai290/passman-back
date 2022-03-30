@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,8 +21,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\passman-back.Business.Dtos\passman-back.Business.Dtos.csproj" />
+    <ProjectReference Include="..\passman-back.Business.Interfaces\passman-back.Business.Interfaces.csproj" />
     <ProjectReference Include="..\passman-back.Domain.Core\passman-back.Domain.Core.csproj" />
     <ProjectReference Include="..\passman-back.Domain.Interfaces\passman-back.Domain.Interfaces.csproj" />
+    <ProjectReference Include="..\passman-back.Infrastructure.Business\passman-back.Infrastructure.Business.csproj" />
     <ProjectReference Include="..\passman-back.Infrastructure.Data\passman-back.Infrastructure.Data.csproj" />
   </ItemGroup>
 

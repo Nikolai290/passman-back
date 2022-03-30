@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>passman_back.Infrastructure.Business</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\passman-back.Business.Dtos\passman-back.Business.Dtos.csproj" />
+    <ProjectReference Include="..\passman-back.Business.Interfaces\passman-back.Business.Interfaces.csproj" />
+    <ProjectReference Include="..\passman-back.Domain.Core\passman-back.Domain.Core.csproj" />
+    <ProjectReference Include="..\passman-back.Domain.Interfaces\passman-back.Domain.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

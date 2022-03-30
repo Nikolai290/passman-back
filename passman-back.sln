@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "passman-back.Domain.Interfa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "passman-back.Infrastructure.Data", "passman-back.Infrastructure.Data\passman-back.Infrastructure.Data.csproj", "{F8D4D0D9-9CEA-43C0-AAC0-8BDE156BB672}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "passman-back.Business.Interfaces", "passman-back.Business.Interfaces\passman-back.Business.Interfaces.csproj", "{EA97A8BB-A581-4C64-899A-AAF44C9CD63A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "passman-back.Infrastructure.Business", "passman-back.Infrastructure.Business\passman-back.Infrastructure.Business.csproj", "{6C742402-E115-42E1-8D89-1AA301EAB486}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{F8D4D0D9-9CEA-43C0-AAC0-8BDE156BB672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8D4D0D9-9CEA-43C0-AAC0-8BDE156BB672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8D4D0D9-9CEA-43C0-AAC0-8BDE156BB672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA97A8BB-A581-4C64-899A-AAF44C9CD63A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA97A8BB-A581-4C64-899A-AAF44C9CD63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA97A8BB-A581-4C64-899A-AAF44C9CD63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA97A8BB-A581-4C64-899A-AAF44C9CD63A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C742402-E115-42E1-8D89-1AA301EAB486}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C742402-E115-42E1-8D89-1AA301EAB486}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C742402-E115-42E1-8D89-1AA301EAB486}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C742402-E115-42E1-8D89-1AA301EAB486}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

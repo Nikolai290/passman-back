@@ -8,7 +8,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using passman_back.Domain.Interfaces.DbContexts;
+using passman_back.Infrastructure.Business.MappingProfiles;
 using passman_back.Infrastructure.Data.DbContexts;
+using passman_back.IoC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,9 @@ namespace passman_back {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "passman_back", Version = "v1" });
             });
             services.AddDbContext<IMainDbContext,MainDbContext>();
+            services.AddAutoMapper(typeof(DefaultMapperProfiles));
+            services.ConfigureRepositoty();
+            services.ConfigureServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

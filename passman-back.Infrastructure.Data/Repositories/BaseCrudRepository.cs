@@ -4,6 +4,7 @@ using passman_back.Domain.Interfaces.DbContexts;
 using passman_back.Domain.Interfaces.Repositories;
 using passman_back.Infrastructure.Data.DbContexts;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace passman_back.Infrastructure.Domain.Repositories {
@@ -26,6 +27,9 @@ namespace passman_back.Infrastructure.Domain.Repositories {
             return result;
         }
 
+        /// <summary>
+        /// Pseudo-Delete
+        /// </summary>
         public virtual async Task DeleteAsync(long id) {
             var entity = await GetByIdAsync(id);
             entity.IsDeleted = true;
@@ -44,6 +48,17 @@ namespace passman_back.Infrastructure.Domain.Repositories {
                 .Set<TEntity>()
                 .SingleAsync(x => !x.IsDeleted && x.Id == id);
             return entity;
+        }
+
+        public virtual async Task<IList<TEntity>> GetByIdsAsync(IList<long> ids) {
+            if (ids.Count == 0) {
+                return new List<TEntity>();
+            }
+            var entities = await db
+                .Set<TEntity>()
+                .Where(x => !x.IsDeleted && ids.Contains(x.Id))
+                .ToListAsync();
+            return entities;
         }
 
         public virtual async Task<TEntity> UpdateAsync(TEntity entity) {

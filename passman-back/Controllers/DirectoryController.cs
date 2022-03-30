@@ -1,43 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using passman_back.Business.Dtos;
+using passman_back.Business.Interfaces.Services;
+using passman_back.Domain.Core.DbEntities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace passman_back.Controllers {
     [ApiController]
-    [Route("api/v1/[controller]")]
-    public class DirectoryController : ControllerBase {
+    [Route("api/v1/directories")]
+    public class DirectoryController
+        : BaseCrudController<Directory, DirectoryOutDto, DirectoryCreateDto, DirectoryUpdateDto> {
 
+        private readonly IDirectoryService directoryServise;
 
-        public DirectoryController() {}
-
-        [HttpGet]
-        public ActionResult<DirectoryOutDto[]> GetAll() {
-            throw new NotImplementedException();
+        public DirectoryController(IDirectoryService service) : base(service) {
+            this.directoryServise = service;
         }
 
         [HttpGet("short")]
-        public ActionResult<DirectoryShortOutDto[]> GetAllShort() {
-            throw new NotImplementedException();
-        }
-
-
-        [HttpPost("create")]
-        public ActionResult<DirectoryOutDto> Create(DirectoryCreateDto createDto) {
-            throw new NotImplementedException();
-        }
-
-        [HttpPut("update/{id}")]
-        public ActionResult<DirectoryOutDto> Update(long id, DirectoryUpdateDto updateDto) {
-            throw new NotImplementedException();
-        }
-
-        [HttpDelete("delete/{id}")]
-        public ActionResult<DirectoryOutDto> Delete(long id) {
-            throw new NotImplementedException();
+        public async Task<ActionResult<DirectoryShortOutDto[]>> GetAllShort() {
+            try {
+                var outDtos = await directoryServise.GetAllShortAsync();
+                return Ok(outDtos);
+            } catch (Exception e) {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

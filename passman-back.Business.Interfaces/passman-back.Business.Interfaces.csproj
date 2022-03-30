@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>passman_back.Business.Interfaces</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\passman-back.Business.Dtos\passman-back.Business.Dtos.csproj" />
+    <ProjectReference Include="..\passman-back.Domain.Core\passman-back.Domain.Core.csproj" />
+    <ProjectReference Include="..\passman-back.Domain.Interfaces\passman-back.Domain.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
