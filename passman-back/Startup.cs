@@ -30,7 +30,7 @@ namespace passman_back {
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "passman_back", Version = "v1" });
             });
-            services.AddDbContext<IMainDbContext,MainDbContext>();
+            services.AddDbContext<IMainDbContext, MainDbContext>();
             services.AddAutoMapper(typeof(DefaultMapperProfiles));
             services.ConfigureRepositoty();
             services.ConfigureValidators();
@@ -39,11 +39,9 @@ namespace passman_back {
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
-            if (env.IsDevelopment()) {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "passman_back v1"));
-            }
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "passman_back v1"));
 
             app.UseHttpsRedirection();
 
