@@ -33,6 +33,7 @@ namespace passman_back {
             services.AddDbContext<IMainDbContext,MainDbContext>();
             services.AddAutoMapper(typeof(DefaultMapperProfiles));
             services.ConfigureRepositoty();
+            services.ConfigureValidators();
             services.ConfigureServices();
         }
 

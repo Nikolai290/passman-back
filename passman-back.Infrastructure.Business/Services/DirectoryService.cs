@@ -5,6 +5,7 @@ using passman_back.Business.Interfaces.Services;
 using passman_back.Domain.Core.DbEntities;
 using passman_back.Domain.Interfaces.Repositories;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace passman_back.Infrastructure.Business.Services {
@@ -25,10 +26,16 @@ namespace passman_back.Infrastructure.Business.Services {
         ) : base(directoryRepository, mapper, createValidator, updateValidator) {
             this.directoryRepository = directoryRepository;
         }
+        public override async Task<IList<DirectoryOutDto>> GetAllAsync() {
+            var allDirectories = await directoryRepository.GetAllAsync();
+            var headDirectories = allDirectories.Where(dir => dir.Parent is null);
+            var outDtos = mapper.Map<IList<DirectoryOutDto>>(headDirectories);
+            return outDtos;
+        }
 
         public async Task<IList<DirectoryShortOutDto>> GetAllShortAsync() {
-            var entities = await directoryRepository.GetAllAsync();
-            var shortOutDtos = mapper.Map<IList<DirectoryShortOutDto>>(entities);
+            var allDirectories = await directoryRepository.GetAllAsync();
+            var shortOutDtos = mapper.Map<IList<DirectoryShortOutDto>>(allDirectories);
             return shortOutDtos;
         }
 
@@ -57,16 +64,18 @@ namespace passman_back.Infrastructure.Business.Services {
                 directory.Parent = parent;
             }
 
+            mapper.Map(updateDto, directory);
+
             await directoryRepository.UpdateAsync(directory);
             var outDto = mapper.Map<DirectoryOutDto>(directory);
             return outDto;
         }
 
         public override async Task DeleteAsync(long id) {
-            var entity = await directoryRepository.GetByIdAsync(id);
-            entity.Parent.Childrens.Remove(entity);
+            var dir = await directoryRepository.GetByIdAsync(id);
+            dir.Parent.Childrens.Remove(dir);
+            dir.Parent = null;
             await base.DeleteAsync(id);
         }
-
     }
 }

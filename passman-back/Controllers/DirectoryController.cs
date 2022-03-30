@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace passman_back.Controllers {
     [ApiController]
-    [Route("api/v1/directories")]
+    [Route("api/v1/Directories")]
     public class DirectoryController
         : BaseCrudController<Directory, DirectoryOutDto, DirectoryCreateDto, DirectoryUpdateDto> {
 

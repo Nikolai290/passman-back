@@ -4,6 +4,7 @@ using passman_back.Business.Dtos;
 using passman_back.Business.Interfaces.Services;
 using passman_back.Domain.Core.DbEntities;
 using passman_back.Domain.Interfaces.Repositories;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace passman_back.Infrastructure.Business.Services {
@@ -30,23 +31,32 @@ namespace passman_back.Infrastructure.Business.Services {
 
         public override async Task<PasscardOutDto> CreateAsync(PasscardCreateDto createDto) {
             await createValidator.ValidateAndThrowAsync(createDto);
-            var entity = mapper.Map<Passcard>(createDto);
-            entity.Parents = await directoryRepository.GetByIdsAsync(createDto.ParentIds);
-            var result = await baseCrudRepository.CreateAsync(entity);
+            var passcard = mapper.Map<Passcard>(createDto);
+            passcard.Parents = await directoryRepository.GetByIdsAsync(createDto.ParentIds);
+            var result = await baseCrudRepository.CreateAsync(passcard);
             var outDto = mapper.Map<PasscardOutDto>(result);
             return outDto;
         }
 
         public override async Task<PasscardOutDto> UpdateAsync(long id, PasscardUpdateDto updateDto) {
             await updateValidator.ValidateAndThrowAsync(updateDto);
-            var entity = mapper.Map<Passcard>(updateDto);
+            var passcard = await passcardRepository.GetByIdAsync(id);
+            mapper.Map(updateDto, passcard);
             // TODO
-            entity.Parents = await directoryRepository.GetByIdsAsync(updateDto.ParentIds);
+            passcard.Parents = await directoryRepository.GetByIdsAsync(updateDto.ParentIds);
             // ^^^
-            var result = await baseCrudRepository.CreateAsync(entity);
-            var outDto = mapper.Map<PasscardOutDto>(result);
+            await baseCrudRepository.UpdateAsync(passcard);
+            var outDto = mapper.Map<PasscardOutDto>(passcard);
             return outDto;
         }
 
+        public override async Task DeleteAsync(long id) {
+            var pass = await passcardRepository.GetByIdAsync(id);
+            foreach(var parent in pass.Parents) {
+                parent.Passcards.Remove(pass);
+            }
+            pass.Parents = null;
+            await base.DeleteAsync(id);
+        }
     }
 }

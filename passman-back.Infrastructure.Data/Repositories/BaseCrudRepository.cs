@@ -39,6 +39,7 @@ namespace passman_back.Infrastructure.Domain.Repositories {
         public virtual async Task<IList<TEntity>> GetAllAsync() {
             var entities = await db
                 .Set<TEntity>()
+                .Where(x => !x.IsDeleted)
                 .ToListAsync();
             return entities;
         }

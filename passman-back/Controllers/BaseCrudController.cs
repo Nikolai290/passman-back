@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace passman_back.Controllers {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/[controller]s")]
     public class BaseCrudController<TEntity, TOutDto, TCreateDto, TUpdateDto> : ControllerBase {
         protected readonly IBaseCrudService<TEntity, TOutDto, TCreateDto, TUpdateDto> service;
         public BaseCrudController(
