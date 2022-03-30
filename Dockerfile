@@ -11,10 +11,10 @@ COPY ["passman-back/passman-back.csproj", "passman-back/"]
 RUN dotnet restore "passman-back/passman-back.csproj"
 COPY . .
 WORKDIR "/src/passman-back"
-RUN dotnet build "passman-back.csproj" -c Release -o /app/build
+RUN dotnet build "passman-back.csproj" -c Debug -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "passman-back.csproj" -c Release -o /app/publish
+RUN dotnet publish "passman-back.csproj" -c Debug -o /app/publish
 
 FROM base AS final
 WORKDIR /app
