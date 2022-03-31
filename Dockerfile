@@ -19,5 +19,6 @@ RUN dotnet publish "passman-back.csproj" -c Debug -o /app/publish
 FROM base AS final
 WORKDIR /app
 ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_ENVIRONMENT=Development
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "passman-back.dll"]
