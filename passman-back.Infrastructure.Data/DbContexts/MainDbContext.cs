@@ -1,23 +1,36 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using passman_back.Domain.Core.DbEntities;
 using passman_back.Domain.Interfaces.DbContexts;
+using passman_back.Infrastructure.Domain.Settings;
 using System.Reflection;
 
 namespace passman_back.Infrastructure.Data.DbContexts {
     public partial class MainDbContext : DbContext, IMainDbContext {
         public DbSet<Directory> Directories { get; set; }
         public DbSet<Passcard> Passcards { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
+        public DbSet<UserGroupDirectoryRelation> UserGroupDirectoryRelations { get; set; }
+        public DbSet<RestorePasswordCode> RestorePasswordCodes { get; set; }
+        public DbSet<InviteCode> InviteCodes { get; set; }
+
+        public MainDbSettings settings { get; set; }
 
         public MainDbContext() : base() { }
 
-        public MainDbContext(DbContextOptions<MainDbContext> options) : base(options) { }
+        public MainDbContext(
+            DbContextOptions<MainDbContext> options,
+            IOptions<MainDbSettings> settings
+        ) : base(options) {
+            this.settings = settings.Value;
+            Database.Migrate();
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            var connetctionString = "Host=10.214.1.247;Port=5433;Database=passman;Username=passman;Password=passman551";
-
             optionsBuilder
                 .UseSnakeCaseNamingConvention()
                 .UseLazyLoadingProxies()
-                .UseNpgsql(connetctionString);
+                .UseNpgsql(settings.GetConnectionsString());
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {

@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\passman-back.Business.Dtos\passman-back.Business.Dtos.csproj" />
     <ProjectReference Include="..\passman-back.Domain.Core\passman-back.Domain.Core.csproj" />
     <ProjectReference Include="..\passman-back.Domain.Interfaces\passman-back.Domain.Interfaces.csproj" />

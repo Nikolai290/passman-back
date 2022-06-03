@@ -27,6 +27,11 @@ namespace passman_back.Infrastructure.Domain.Repositories {
             return result;
         }
 
+        public async Task CreateRangeAsync(IEnumerable<TEntity> entities) {
+            await db.Set<TEntity>().AddRangeAsync(entities);
+            await db.SaveChangesAsync();
+        }
+
         /// <summary>
         /// Pseudo-Delete
         /// </summary>
@@ -34,6 +39,11 @@ namespace passman_back.Infrastructure.Domain.Repositories {
             var entity = await GetByIdAsync(id);
             entity.IsDeleted = true;
             await db.SaveChangesAsync();
+        }
+
+        public async Task DeleteTotalAsync(long id) {
+            var entity = await GetByIdAsync(id);
+            db.Set<TEntity>().Remove(entity);
         }
 
         public virtual async Task<IList<TEntity>> GetAllAsync() {
@@ -51,8 +61,8 @@ namespace passman_back.Infrastructure.Domain.Repositories {
             return entity;
         }
 
-        public virtual async Task<IList<TEntity>> GetByIdsAsync(IList<long> ids) {
-            if (ids.Count == 0) {
+        public virtual async Task<IList<TEntity>> GetByIdsAsync(IEnumerable<long> ids) {
+            if (ids.Count() == 0) {
                 return new List<TEntity>();
             }
             var entities = await db

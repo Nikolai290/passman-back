@@ -5,4 +5,8 @@
     <RootNamespace>passman_back.Business.Dtos</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\passman-back.Domain.Core\passman-back.Domain.Core.csproj" />
+  </ItemGroup>
+
 </Project>

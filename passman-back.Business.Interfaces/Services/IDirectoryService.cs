@@ -7,5 +7,6 @@ namespace passman_back.Business.Interfaces.Services {
     public interface IDirectoryService
         : IBaseCrudService<Directory, DirectoryOutDto, DirectoryCreateDto, DirectoryUpdateDto> {
         Task<IList<DirectoryShortOutDto>> GetAllShortAsync();
+        Task<DirectoryOutDto> MoveAsync(long id, long parentId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using passman_back.Business.Dtos;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace passman_back.Business.Interfaces.Services {
@@ -7,7 +8,7 @@ namespace passman_back.Business.Interfaces.Services {
         Task<IList<TOutDto>> GetAllAsync();
         Task<TOutDto> GetByIdAsync(long id);
         Task<TOutDto> CreateAsync(TCreateDto createDto);
-        Task<TOutDto> UpdateAsync(long id, TUpdateDto updateDto);
+        Task<TOutDto> UpdateAsync(TUpdateDto updateDto);
 
         /// <summary>
         /// Pseudo-Delete

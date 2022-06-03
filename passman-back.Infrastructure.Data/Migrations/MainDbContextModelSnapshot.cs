@@ -41,6 +41,44 @@ namespace passman_back.Infrastructure.Data.Migrations
                     b.ToTable("directory_passcards_relations", (string)null);
                 });
 
+            modelBuilder.Entity("InviteCodeUserGroup", b =>
+                {
+                    b.Property<long>("InviteCodesId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("invite_codes_id");
+
+                    b.Property<long>("UserGroupsId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_groups_id");
+
+                    b.HasKey("InviteCodesId", "UserGroupsId")
+                        .HasName("pk_invite_code_user_group");
+
+                    b.HasIndex("UserGroupsId")
+                        .HasDatabaseName("ix_invite_code_user_group_user_groups_id");
+
+                    b.ToTable("invite_code_user_group", (string)null);
+                });
+
+            modelBuilder.Entity("PasscardUser", b =>
+                {
+                    b.Property<long>("FavoritePasscardsId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("favorite_passcards_id");
+
+                    b.Property<long>("UsersFavoriteId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("users_favorite_id");
+
+                    b.HasKey("FavoritePasscardsId", "UsersFavoriteId")
+                        .HasName("pk_passcard_user");
+
+                    b.HasIndex("UsersFavoriteId")
+                        .HasDatabaseName("ix_passcard_user_users_favorite_id");
+
+                    b.ToTable("passcard_user", (string)null);
+                });
+
             modelBuilder.Entity("passman_back.Domain.Core.DbEntities.Directory", b =>
                 {
                     b.Property<long>("Id")
@@ -73,6 +111,45 @@ namespace passman_back.Infrastructure.Data.Migrations
                     b.ToTable("directories", (string)null);
                 });
 
+            modelBuilder.Entity("passman_back.Domain.Core.DbEntities.InviteCode", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("AliveBefore")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("alive_before");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text")
+                        .HasColumnName("code");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<bool>("IsStopped")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_stopped");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer")
+                        .HasColumnName("role");
+
+                    b.HasKey("Id")
+                        .HasName("pk_invite_codes");
+
+                    b.ToTable("invite_codes", (string)null);
+                });
+
             modelBuilder.Entity("passman_back.Domain.Core.DbEntities.Passcard", b =>
                 {
                     b.Property<long>("Id")
@@ -96,6 +173,10 @@ namespace passman_back.Infrastructure.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("login");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
                     b.Property<string>("Password")
                         .HasColumnType("text")
                         .HasColumnName("password");
@@ -108,6 +189,167 @@ namespace passman_back.Infrastructure.Data.Migrations
                         .HasName("pk_passcards");
 
                     b.ToTable("passcards", (string)null);
+                });
+
+            modelBuilder.Entity("passman_back.Domain.Core.DbEntities.RestorePasswordCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AliveBefore")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("alive_before");
+
+                    b.Property<string>("RestoreCode")
+                        .HasColumnType("text")
+                        .HasColumnName("restore_code");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_restore_password_codes");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_restore_password_codes_user_id");
+
+                    b.ToTable("restore_password_codes", (string)null);
+                });
+
+            modelBuilder.Entity("passman_back.Domain.Core.DbEntities.User", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text")
+                        .HasColumnName("email");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text")
+                        .HasColumnName("first_name");
+
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_blocked");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text")
+                        .HasColumnName("last_name");
+
+                    b.Property<string>("Nickname")
+                        .HasColumnType("text")
+                        .HasColumnName("nickname");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text")
+                        .HasColumnName("password");
+
+                    b.Property<string>("PatronymicName")
+                        .HasColumnType("text")
+                        .HasColumnName("patronymic_name");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer")
+                        .HasColumnName("role");
+
+                    b.HasKey("Id")
+                        .HasName("pk_users");
+
+                    b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("passman_back.Domain.Core.DbEntities.UserGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_user_groups");
+
+                    b.ToTable("user_groups", (string)null);
+                });
+
+            modelBuilder.Entity("passman_back.Domain.Core.DbEntities.UserGroupDirectoryRelation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("DirectoryId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("directory_id");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
+                    b.Property<int>("Permission")
+                        .HasColumnType("integer")
+                        .HasColumnName("permission");
+
+                    b.Property<long?>("UserGroupId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_group_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_user_group_directory_relations");
+
+                    b.HasIndex("DirectoryId")
+                        .HasDatabaseName("ix_user_group_directory_relations_directory_id");
+
+                    b.HasIndex("UserGroupId")
+                        .HasDatabaseName("ix_user_group_directory_relations_user_group_id");
+
+                    b.ToTable("user_group_directory_relations", (string)null);
+                });
+
+            modelBuilder.Entity("UserUserGroup", b =>
+                {
+                    b.Property<long>("UserGroupsId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_groups_id");
+
+                    b.Property<long>("UsersId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("users_id");
+
+                    b.HasKey("UserGroupsId", "UsersId")
+                        .HasName("pk_user_user_group");
+
+                    b.HasIndex("UsersId")
+                        .HasDatabaseName("ix_user_user_group_users_id");
+
+                    b.ToTable("user_user_group", (string)null);
                 });
 
             modelBuilder.Entity("DirectoryPasscard", b =>
@@ -127,6 +369,40 @@ namespace passman_back.Infrastructure.Data.Migrations
                         .HasConstraintName("fk_directory_passcards_relations_passcards_passcards_id");
                 });
 
+            modelBuilder.Entity("InviteCodeUserGroup", b =>
+                {
+                    b.HasOne("passman_back.Domain.Core.DbEntities.InviteCode", null)
+                        .WithMany()
+                        .HasForeignKey("InviteCodesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_invite_code_user_group_invite_codes_invite_codes_id");
+
+                    b.HasOne("passman_back.Domain.Core.DbEntities.UserGroup", null)
+                        .WithMany()
+                        .HasForeignKey("UserGroupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_invite_code_user_group_user_groups_user_groups_id");
+                });
+
+            modelBuilder.Entity("PasscardUser", b =>
+                {
+                    b.HasOne("passman_back.Domain.Core.DbEntities.Passcard", null)
+                        .WithMany()
+                        .HasForeignKey("FavoritePasscardsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_passcard_user_passcards_favorite_passcards_id");
+
+                    b.HasOne("passman_back.Domain.Core.DbEntities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersFavoriteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_passcard_user_users_users_favorite_id");
+                });
+
             modelBuilder.Entity("passman_back.Domain.Core.DbEntities.Directory", b =>
                 {
                     b.HasOne("passman_back.Domain.Core.DbEntities.Directory", "Parent")
@@ -137,9 +413,67 @@ namespace passman_back.Infrastructure.Data.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("passman_back.Domain.Core.DbEntities.RestorePasswordCode", b =>
+                {
+                    b.HasOne("passman_back.Domain.Core.DbEntities.User", "User")
+                        .WithOne("RestorePasswordCode")
+                        .HasForeignKey("passman_back.Domain.Core.DbEntities.RestorePasswordCode", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_restore_password_codes_users_user_id");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("passman_back.Domain.Core.DbEntities.UserGroupDirectoryRelation", b =>
+                {
+                    b.HasOne("passman_back.Domain.Core.DbEntities.Directory", "Directory")
+                        .WithMany("Relations")
+                        .HasForeignKey("DirectoryId")
+                        .HasConstraintName("fk_user_group_directory_relations_directories_directory_id");
+
+                    b.HasOne("passman_back.Domain.Core.DbEntities.UserGroup", "UserGroup")
+                        .WithMany("Relations")
+                        .HasForeignKey("UserGroupId")
+                        .HasConstraintName("fk_user_group_directory_relations_user_groups_user_group_id");
+
+                    b.Navigation("Directory");
+
+                    b.Navigation("UserGroup");
+                });
+
+            modelBuilder.Entity("UserUserGroup", b =>
+                {
+                    b.HasOne("passman_back.Domain.Core.DbEntities.UserGroup", null)
+                        .WithMany()
+                        .HasForeignKey("UserGroupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_user_user_group_user_groups_user_groups_id");
+
+                    b.HasOne("passman_back.Domain.Core.DbEntities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_user_user_group_users_users_id");
+                });
+
             modelBuilder.Entity("passman_back.Domain.Core.DbEntities.Directory", b =>
                 {
                     b.Navigation("Childrens");
+
+                    b.Navigation("Relations");
+                });
+
+            modelBuilder.Entity("passman_back.Domain.Core.DbEntities.User", b =>
+                {
+                    b.Navigation("RestorePasswordCode");
+                });
+
+            modelBuilder.Entity("passman_back.Domain.Core.DbEntities.UserGroup", b =>
+                {
+                    b.Navigation("Relations");
                 });
 #pragma warning restore 612, 618
         }

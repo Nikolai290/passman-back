@@ -1,6 +1,7 @@
 ﻿namespace passman_back.Business.Dtos {
-    public class PasscardUpdateDto {
+    public class PasscardUpdateDto : AbstractDto {
         public long[] ParentIds { get; set; }
+        public string Name { get; set; }
         public string Url { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }

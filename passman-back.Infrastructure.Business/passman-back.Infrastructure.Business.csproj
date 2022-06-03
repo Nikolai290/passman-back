@@ -7,7 +7,10 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="EPPlus" Version="6.0.3" />
     <PackageReference Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="MailKit" Version="3.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +18,7 @@
     <ProjectReference Include="..\passman-back.Business.Interfaces\passman-back.Business.Interfaces.csproj" />
     <ProjectReference Include="..\passman-back.Domain.Core\passman-back.Domain.Core.csproj" />
     <ProjectReference Include="..\passman-back.Domain.Interfaces\passman-back.Domain.Interfaces.csproj" />
+    <ProjectReference Include="..\SearchingLibrary\SearchingLibrary.csproj" />
   </ItemGroup>
 
 </Project>
